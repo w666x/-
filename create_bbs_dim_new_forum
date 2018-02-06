@@ -1,0 +1,12 @@
+-- CREATE table gdm.bbs_dim_new_forum as
+-- 事实
+SELECT forum_id,forum_name
+    ,elt(forum_status+1,'禁用','启用') forum_status
+    ,elt(forum_type+1,'普通','版主版块') forum_type
+-- 维度
+    ,top_cate_id,cate_id
+--度量
+    ,community_num
+-- 描述
+    ,order_index,forum_ename,forum_desc,forum_extra
+    from ods_dmp_test.z_new_forum limit 100
