@@ -1,8 +1,8 @@
 -- CREATE table gdm.bbs_dim_new_forum_cate as
--- 事实表
+-- 事实
 SELECT fcate_id,forum_id,fcate_name
     ,elt(fcate_status+1,'禁用','启用') fcate_status
--- 描述表
+-- 描述
     ,get_json_object(fcate_extra,"$.num") notkonw
     ,order_index,fcate_ename
     from ods_dmp_test.z_new_forum_cate limit 100
