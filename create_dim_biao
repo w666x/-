@@ -1,0 +1,6 @@
+SELECT c.forum_id,c.forum_name,c._forum_status,c.forum_type,c.top_cate_name,d.cate_name cate_name,c.community_num
+    ,c.order_index,c.forum_ename
+    from 
+    (SELECT a.*,b.top_cate_name top_cate_name FROM gdm.bbs_dim_new_forum a 
+        LEFT JOIN dim.cate_details b on (a.top_cate_id = b.top_cate_id)) c 
+        LEFT JOIN dim.cate_details d on (c.cate_id = d.cate_id)) c 
