@@ -1,0 +1,11 @@
+-- CREATE table gdm.sod_dim_order_product_coupon as
+-- 事实
+SELECT order_product_coupon_id, user_coupon_id
+    ,elt(marketing_coupon_type+1,'平台券','商家券') marketing_coupon_type
+    ,created_at,created_by,del_flag
+-- 维度
+    ,order_store_id,order_product_id,marketing_coupon_id
+-- 度量
+-- 描述
+    ,coupon_discount, updated_at,updated_by
+    from ods_dmp_test.t_order_product_coupon LIMIT 100
