@@ -1,0 +1,13 @@
+-- CREATE table gdm.kz_dw_demand_tpl as
+-- 事实
+SELECT id,button
+    ,split(position_name,'_') position_name
+    ,elt(type+1,'未填','行业','类目') type
+    ,elt((CASE(status) when -1 then 1 ELSE 2 end),'关闭','开启') status
+    ,from_unixtime(create_time,'yyyy-MM-dd') create_time
+-- 维度
+    ,city_id,item_id,store_id,tpl_id
+-- 度量
+-- 描述
+    update_time
+    from tmp.copy_m_demand_tpl LIMIT 100
