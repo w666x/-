@@ -1,0 +1,27 @@
+-- CREATE table gdm.bbs_dw_new_community as
+-- 第一部分是事实相关的指标
+SELECT community_id
+    ,elt(community_type+1,'草稿','正常') community_type
+    ,elt((case(community_setting) when '0x01' then 1 WHEN '0x02' then 2 ELSE 3 end),'热点','精选','全局置顶') community_setting
+    ,elt((CASE(community_status) when 1 then 1 WHEN 0 then 2 when -1 then 3 when 99 then 4 ELSE 5 END),'正常','待审核','删除','审核不通过','其他') community_status
+    ,elt(tmpl_type+1,'普通模板','运营模板') tmpl_type
+    ,elt(content_type,'帖子','问答','小讨论','消费体验帖','订单点评帖','图集') content_type
+    ,elt(content_zip_flag+1,'不压缩','压缩') content_zip_flag
+    ,elt(source,'社区','母婴活动') source
+    ,elt(cast(data_type as int),'运营活动','老版社区','老版问答','订单点评') data_type
+    ,from_unixtime(create_time,'yyyy-MM-dd HH:mm:ss') create_time
+    ,from_unixtime(last_reply_time,'yyyy-MM-dd HH:mm:ss') last_reply_time
+    ,create_ip,order_index
+-- 第二部分是维度相关的指标
+    ,city_id,forum_id,uid,m_uid,store_id
+    ,split(fcate_ids,',') fcate_ids
+-- 第三部分是度量相关的指标
+    ,view_num,reply_num,support_num,collect_num,content_num,img_num, floor_num
+-- 第四部分是描述相关的指标
+-- 此时的community_conf和extra_conf并没有做完啊
+    ,split(publish_citys,',') publish_citys
+    ,last_reply_uid,update_time
+    ,get_json_object(community_conf,"$.vote_id") community_conf_vote_id
+    ,get_json_object(extra_conf,"$.subject_uids") extra_conf_subject_uids
+    ,community_title,community_subtitle,community_desc,content,face_imgs,community_url,data_id
+    from ods_dmp_test.z_new_community LIMIT 100
