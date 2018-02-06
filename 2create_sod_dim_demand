@@ -1,0 +1,11 @@
+-- CREATE table dim.kz_demand as
+-- 事实
+SELECT demand_id,uid,position_name
+    ,item_type,create_time
+-- 维度
+    ,city_id,cate_id,store_id,tpl_id,item_id,form_id
+-- 度量
+-- 描述
+    -- ,update_time
+    -- ,phone,old_id,old_type,tpl_name
+    FROM gdm.kz_dim_demand limit 100
