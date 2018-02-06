@@ -1,0 +1,18 @@
+-- CREATE table sod_dw_order_product as
+-- 事实
+SELECT order_product_id,serial_number,uid,product_type
+    ,order_product_unit,order_product_qty
+    , elt(order_product_status,'创建','已支付','已发货','已收货','已评价') order_product_status
+    ,elt(order_product_after_status+1,'待售后','待商家处理','待平台处理','已完成','已取消') order_product_after_status
+    ,date_format(order_after_deadline,'yyyy-MM-dd') order_after_deadline
+    ,date_format(order_product_auto_confirm_at,'yyyy-MM-dd') order_product_auto_confirm_at
+    ,order_product_appraise_status,created_by,created_at,del_flag
+-- 维度
+    ,product_id,store_id,product_cate_id ,product_version_id,product_sku_id,product_sku_serial_id
+    ,order_store_id,order_store_industry_cate_id
+-- 度量
+-- 描述
+   ,product_alias,product_sku_desc,order_product_subtotal,order_product_subtotal_fix
+   ,order_product_shipping,order_product_tax,order_product_show_price
+   ,order_product_remark,updated_at,updated_by,order_qrcode_deadline,order_product_auto_ship,order_product_auto_receive
+     FROM ods_dmp_test.t_order_product LIMIT 100
