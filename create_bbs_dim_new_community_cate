@@ -1,0 +1,6 @@
+--create table gdm.bbs_dim_new_community_cate as
+-- 事实表
+SELECT community_id,forum_id
+-- 维度表
+    ,fcate_id
+    FROM ods_dmp_test.z_new_community_cate limit 100
