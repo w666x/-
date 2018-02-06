@@ -1,0 +1,15 @@
+-- CREATE table gdm.sod_dw_order_product_after as
+-- 事实
+SELECT order_product_after_id, serial_number
+    , elt(order_product_after_type+1,'未知','退货','退单','换货') order_product_after_type,
+    ,order_product_after_status,order_product_after_store_at,order_product_after_platform_at
+    ,created_by,created_at,del_flag
+-- 维度
+    ,order_store_id,order_product_id
+-- 度量
+-- 描述
+    ,order_product_after_reason,order_product_after_proof
+    ,order_product_after_store_proof,order_product_after_store_remark
+    ,order_product_after_platform_remark,order_product_after_cancel_at 
+    ,updated_at,updated_by
+    from ods_dmp_test.t_order_product_after limit 100
