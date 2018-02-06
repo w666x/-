@@ -1,0 +1,10 @@
+-- CREATE table gdm.kz_dw_demand_value as
+-- 事实
+SELECT value_id,field_name
+    ,from_unixtime(create_time,'yyyy-MM-dd HH:mm:ss') create_time
+-- 维度
+    ,demand_id,field_id
+-- 度量
+-- 描述
+    ,field_type,value
+    from tmp.copy_m_demand_value limit 100
