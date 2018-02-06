@@ -1,0 +1,5 @@
+-- CREATE table gdm.kz_dw_demand_industry as
+-- 事实
+SELECT demand_id
+-- 维度
+    ,industy_id from tmp.copy_m_demand_industy_relation limit 100
