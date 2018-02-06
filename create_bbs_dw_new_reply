@@ -1,0 +1,17 @@
+-- CREATE table gdm.bbs_dw_new_reply as
+-- 事实
+SELECT reply_id,create_time,uid,uname,create_ip
+    ,elt((case(reply_status) WHEN -1 then 1 ELSE 2 END),'删除','正常') reply_status
+    ,elt(content_type,'1','2','3','4','5') content_type
+    ,array(if(split(bin(reply_setting),"")[3]==1,"置顶","")
+        ,if(split(bin(reply_setting),"")[2]==1,"推荐回复","")
+        ,if(split(bin(reply_setting),"")[1]==1,"采纳回复","")
+        ,if(split(bin(reply_setting),"")[0]==1,"最佳回复","")) reply_setting
+    ,6 as order_index
+-- 维度
+    ,city_id,community_id
+-- 度量
+    ,reply_num,support_num,collect_num,floor_num
+-- 描述
+    ,content,images,update_time
+    from ods_dmp_test.z_new_reply limit 100
