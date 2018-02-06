@@ -1,0 +1,15 @@
+-- create table dim.actv_activity as
+select 
+--事实
+activity_id,category,status,create_time
+--维度
+    ,city_ids,store_ids,category_set_forum_id,category_set_fcate_ids,category_set_tags
+-- --度量
+--     ,look_num,signup_num
+--描述
+    ,title
+    -- ,reward,limit_num,conditions,content
+    -- ,update_time
+    ,start_time,end_time
+    ,topic_start_time,topic_end_time
+from gdm.ACTV_dim_activity limit 100;
