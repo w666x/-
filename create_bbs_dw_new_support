@@ -1,0 +1,10 @@
+-- CREATE table gdm.bbs_dw_new_support as
+-- 事实
+SELECT data_id
+    ,elt(data_type+1,'帖子','回复') data_type
+    ,elt(data_status+1,'取消','点赞') data_status
+    ,from_unixtime(support_time,'yyyy-MM-dd HH:mm:ss') support_time
+    ,create_ip
+-- 维度
+    ,uid
+    from ods_dmp_test.z_new_support LIMIT 100
