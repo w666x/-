@@ -1,3 +1,4 @@
+--create talbe dim_forum_cate as
 SELECT fcate_id,a.forum_id forum_id,b.forum_name forum_name,fcate_name,fcate_status
     ,fcate_ename
     from gdm.bbs_dim_new_forum_cate a
